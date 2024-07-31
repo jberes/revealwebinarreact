@@ -9,8 +9,6 @@ import createClassTransformer from '../style-utils';
 IgrIconButtonModule.register();
 IgrRippleModule.register();
 
-RevealSdkSettings.serverUrl = 'globalState.revealServer';
-
 export default function DashboardViewer() {
   const classes = createClassTransformer(styles);
   const uuid = () => crypto.randomUUID();
@@ -19,6 +17,8 @@ export default function DashboardViewer() {
   const routeParams = useParams();
   const dashboardName2 = routeParams.dashboardName2;
   const { globalState } = useGlobalContext();
+
+  RevealSdkSettings.serverUrl = globalState.revealServer;
 
   const dashboardOptions: RevealViewOptions = {
     visualizations: {
@@ -33,7 +33,7 @@ export default function DashboardViewer() {
     <>
       <div className={classes("row-layout dashboard-viewer-container")}>
         <div className={classes("group")}>
-          <RvRevealView dashboard="dashboardName2!" options={dashboardOptions}></RvRevealView>
+          <RvRevealView dashboard={dashboardName2!} options={dashboardOptions}></RvRevealView>
         </div>
         <IgrIconButton variant="flat" clicked={() => navigate(`/card-view`)} className={classes("icon-button")}>
           <span className={classes("material-icons icon")} key={uuid()}>

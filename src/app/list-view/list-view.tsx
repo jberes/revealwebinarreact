@@ -10,14 +10,14 @@ import createClassTransformer from '../style-utils';
 IgrAvatarModule.register();
 IgrListModule.register();
 
-RevealSdkSettings.serverUrl = 'globalState.revealServer';
-
 export default function ListView() {
   const classes = createClassTransformer(styles);
   const uuid = () => crypto.randomUUID();
   const { globalState } = useGlobalContext();
   const [dashboardName1, setDashboardName1] = useState<string | undefined>();
   const { revealWebinar01DashboardNames } = useGetDashboardNamesList();
+
+  RevealSdkSettings.serverUrl = globalState.revealServer;
 
   const dashboardOptions: RevealViewOptions = {
     visualizations: {
@@ -51,7 +51,7 @@ export default function ListView() {
         </div>
         <div className={classes("column-layout group_1")}>
           <div className={classes("group_2")}>
-            <RvRevealView dashboard="dashboardName1!" options={dashboardOptions}></RvRevealView>
+            <RvRevealView dashboard={dashboardName1!} options={dashboardOptions}></RvRevealView>
           </div>
         </div>
       </div>
