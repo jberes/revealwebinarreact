@@ -9,13 +9,13 @@ import createClassTransformer from '../style-utils';
 
 IgrComboModule.register();
 
-RevealSdkSettings.serverUrl = 'globalState.revealServer';
-
 export default function ComboView() {
   const classes = createClassTransformer(styles);
   const { globalState } = useGlobalContext();
   const [dashboardName, setDashboardName] = useState<string | undefined>('Sales');
   const { revealWebinar01DashboardNames } = useGetDashboardNamesList();
+
+  RevealSdkSettings.serverUrl = globalState.revealServer;
 
   const dashboardOptions: RevealViewOptions = {
     visualizations: {
@@ -38,7 +38,7 @@ export default function ComboView() {
         </div>
         <div className={classes("column-layout group_1")}>
           <div className={classes("group_2")}>
-            <RvRevealView dashboard="dashboardName" options={dashboardOptions}></RvRevealView>
+            <RvRevealView dashboard={dashboardName} options={dashboardOptions}></RvRevealView>
           </div>
         </div>
       </div>
